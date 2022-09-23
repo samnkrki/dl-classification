@@ -15,7 +15,7 @@ export default function Home() {
     }));
     try {
       setLoading(true);
-      const response = await predictImage(event.target.file[0]);
+      const response = await predictImage(event.target.files[0]);
       setDatasource(prevData => ({
         ...prevData,
         predictionResponse: response.data,
