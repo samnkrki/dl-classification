@@ -1,4 +1,5 @@
 import axios from 'axios';
+import envConfig from '../config';
 
 /**
  * returns a promise
@@ -6,6 +7,6 @@ import axios from 'axios';
  */
 export function predictImage(image) {
   const reqBody = new FormData();
-  reqBody.append(image, image);
-  return axios.post('', reqBody);
+  reqBody.append('file', image);
+  return axios.post(envConfig.baseUrl + envConfig.predictPaths.catDogPrediction, reqBody);
 }

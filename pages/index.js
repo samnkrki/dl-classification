@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import Head from 'next/head';
+import { useMemo, useState } from 'react';
 import { ClassificationContainer } from '../src/components/ClassificationContainer';
 import { ImageUploadButton } from '../src/components/ImageUpload';
+import envConfig from '../src/utils/config';
 import { predictImage } from '../src/utils/serviceCalls';
 
 export default function Home() {
+  const currentSelected = useMemo(() => envConfig.classificationOptions[1], []);
   const [datasource, setDatasource] = useState({ imgSrc: null, predictionResponse: null });
   const [loading, setLoading] = useState(false);
 
@@ -26,12 +29,15 @@ export default function Home() {
       setLoading(false);
     }
   };
-  
+
   return (
     <div style={{ margin: 50 }}>
+      <Head>
+        <title>Guess gardim na ta</title>
+      </Head>
       <div>
         <ImageUploadButton onChange={uploadImage} />
-        <ClassificationContainer datasource={datasource} />
+        <ClassificationContainer datasource={datasource} currentSelected={currentSelected} />
       </div>
     </div>
   );

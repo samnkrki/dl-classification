@@ -2,14 +2,14 @@ import { Grid, Paper, Typography } from '@mui/material';
 import Image from 'next/image';
 import PropTypes from 'prop-types';
 
-export function ClassificationContainer({ datasource }) {
+export function ClassificationContainer({ datasource, currentSelected }) {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12} md={12}>
         <Typography variant="h3" style={{ textTransform: 'uppercase' }}>
-          Handwritten Number Classification
+          {currentSelected.label}
         </Typography>
-        <Typography>0,1,2,3,4,5,6,7,8,9</Typography>
+        <Typography>{currentSelected.description}</Typography>
       </Grid>
       <Grid item xs={12} md={6}>
         <Paper variant="outlined" style={{ height: 'auto' }}>
@@ -20,7 +20,9 @@ export function ClassificationContainer({ datasource }) {
         <Grid item xs={12} md={6}>
           <Paper style={{ padding: 10 }}>
             <Typography marginBottom={2}>Prediction::</Typography>
-            <Typography>{datasource.predictionResponse}</Typography>
+            <Typography>{datasource.predictionResponse.map((eachClass, i)=>{
+              return <Typography key={i}>{eachClass.class}, {eachClass.confidence}</Typography>
+            })}</Typography>
           </Paper>
         </Grid>
       )}
@@ -35,6 +37,10 @@ export function ClassificationContainer({ datasource }) {
 ClassificationContainer.propTypes = {
   datasource: PropTypes.shape({
     imgSrc: PropTypes.any,
-    predictionResponse: PropTypes.shape({}),
+    predictionResponse: PropTypes.arrayOf({class: PropTypes.string.isRequired, confidence: PropTypes.string.isRequired}),
+    currentSelected: PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired
+    })
   }),
 };
