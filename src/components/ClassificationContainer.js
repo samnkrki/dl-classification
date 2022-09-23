@@ -6,12 +6,14 @@ export function ClassificationContainer({ datasource }) {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12} md={12}>
-        <Typography variant="h3" style={{textTransform: 'uppercase'}}>Handwritten Number Classification</Typography>
+        <Typography variant="h3" style={{ textTransform: 'uppercase' }}>
+          Handwritten Number Classification
+        </Typography>
         <Typography>0,1,2,3,4,5,6,7,8,9</Typography>
       </Grid>
       <Grid item xs={12} md={6}>
         <Paper variant="outlined" style={{ height: 'auto' }}>
-          <Image src={'http://www.example.com/demo-image.jpg'} alt="alternate" width={240} height={240} />
+          <Image src={datasource.imgSrc ? URL.createObjectURL(datasource.imgSrc) : 'http://www.example.com/demo-image.jpg'} alt="alternate" width={240} height={240} />
         </Paper>
       </Grid>
       {datasource.predictionResponse && (
